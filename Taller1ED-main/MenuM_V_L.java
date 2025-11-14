@@ -346,7 +346,8 @@ public class MenuM_V_L {
             System.out.println("5. Promedio de estatura y peso");
             System.out.println("6. Mostrar lista en reversa");
             System.out.println("7. Agregar persona al final");
-            System.out.println("8. Salir");
+            System.out.println("8. Insertar persona en posición específica");
+            System.out.println("9. Salir");
             System.out.print("Ingrese su opción: ");
 
             opcion = scanner.nextInt();
@@ -361,7 +362,7 @@ public class MenuM_V_L {
                     break;
 
                 case 2:
-                    lista.mostrarLista(); // recorre de inicio a fin
+                    lista.mostrarLista();
                     System.out.println("Cantidad de nodos: " + lista.contarNodos());
                     break;
 
@@ -398,13 +399,45 @@ public class MenuM_V_L {
                     break;
 
                 case 8:
+                    Persona personaPosicion = solicitarDatosPersona(scanner);
+
+                    int intentos = 0;
+                    boolean posicionValida = false;
+                    int posicion = -1;
+
+                    while (intentos < 2 && !posicionValida) {
+                        System.out.print("Ingrese la posición donde desea insertar (0 a " + lista.contarNodos() + "): ");
+                        posicion = scanner.nextInt();
+                        scanner.nextLine();
+
+                        if (posicion >= 0 && posicion <= lista.contarNodos()) {
+                            posicionValida = true;
+                        } else {
+                            intentos++;
+                            System.out.println("Posición inválida. Intento " + intentos + " de 2.");
+                        }
+                    }
+
+                    if (posicionValida) {
+                        boolean insertado = lista.insertarEnPosicion(personaPosicion, posicion);
+                        if (insertado) {
+                            System.out.println("Persona insertada exitosamente en la posición " + posicion + ".");
+                        } else {
+                            System.out.println("No se pudo insertar la persona.");
+                        }
+                    } else {
+                        System.out.println("Demasiados intentos fallidos. Regresando al menú principal.");
+                    }
+                    break;
+
+                case 9:
                     System.out.println("Saliendo del sistema de listas dobles...");
                     break;
 
                 default:
                     System.out.println("Opción inválida.");
             }
-        } while (opcion != 8);
+        } while (opcion != 9);
     }
 
 }

@@ -91,8 +91,7 @@ public class ListaDoble {
         System.out.println("Promedio de peso: " + (sumaPeso / tamaño) + " kg");
     }
 
-    // ------------------------------------------ LISTA EN REVERSA
-    // ------------------------------------------
+    // ------------------------------------------ LISTA EN REVERSA------------------------------------------
 
     public void mostrarListaReversa() {
         if (cola == null) {
@@ -107,7 +106,7 @@ public class ListaDoble {
         }
     }
 
-    // ------------------------------------------ AGREGAR PERSONA AL FINAL ------------------------------------------
+    // ------------------------------------------ AGREGA PERSONA AL FINAL ------------------------------------------
 
     public void agregarPersonaFinal(Persona persona) {
         NodoDoble nuevo = new NodoDoble(persona);
@@ -121,4 +120,51 @@ public class ListaDoble {
         tamaño++;
     }
 
+    ////////-------------------------------- INSERTA EN POSICION ESPECIFICA --------------------------------///////
+
+public boolean insertarEnPosicion(Persona persona, int posicion) {
+    if (posicion < 0 || posicion > tamaño) {
+        System.out.println("Posición inválida.");
+        return false;
+    }
+
+    NodoDoble nuevo = new NodoDoble(persona);
+
+    if (posicion == 0) {
+        // Este inserta al inicio
+        nuevo.setSiguiente(cabeza);
+        if (cabeza != null) {
+            cabeza.setAnterior(nuevo);
+        }
+        cabeza = nuevo;
+        if (cola == null) {
+            cola = nuevo;
+        }
+    } else if (posicion == tamaño) {
+        // Este nserta  al final
+        nuevo.setAnterior(cola);
+        if (cola != null) {
+            cola.setSiguiente(nuevo);
+        }
+        cola = nuevo;
+        if (cabeza == null) {
+            cabeza = nuevo;
+        }
+    } else {
+        // Este Inserta en el medio
+        NodoDoble actual = cabeza;
+        for (int i = 0; i < posicion; i++) {
+            actual = actual.getSiguiente();
+        }
+
+        NodoDoble anterior = actual.getAnterior();
+        nuevo.setAnterior(anterior);
+        nuevo.setSiguiente(actual);
+        anterior.setSiguiente(nuevo);
+        actual.setAnterior(nuevo);
+    }
+
+    tamaño++;
+    return true;
+}
 }
