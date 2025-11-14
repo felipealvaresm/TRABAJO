@@ -131,7 +131,6 @@ public boolean insertarEnPosicion(Persona persona, int posicion) {
     NodoDoble nuevo = new NodoDoble(persona);
 
     if (posicion == 0) {
-        // Este inserta al inicio
         nuevo.setSiguiente(cabeza);
         if (cabeza != null) {
             cabeza.setAnterior(nuevo);
@@ -141,7 +140,6 @@ public boolean insertarEnPosicion(Persona persona, int posicion) {
             cola = nuevo;
         }
     } else if (posicion == tamaño) {
-        // Este nserta  al final
         nuevo.setAnterior(cola);
         if (cola != null) {
             cola.setSiguiente(nuevo);
@@ -151,7 +149,6 @@ public boolean insertarEnPosicion(Persona persona, int posicion) {
             cabeza = nuevo;
         }
     } else {
-        // Este Inserta en el medio
         NodoDoble actual = cabeza;
         for (int i = 0; i < posicion; i++) {
             actual = actual.getSiguiente();
